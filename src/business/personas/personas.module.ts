@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PersonasService } from './personas.service';
-import { PersonasService as PersonaCoreService } from 'src/core/personas/personas.service';
+import { PersonasModule as PersonasCoreModule } from 'src/core/personas/personas.module';
 @Module({
-  providers: [PersonasService, PersonaCoreService]
+  providers: [PersonasService],
+  imports: [PersonasCoreModule],
+  exports: [PersonasService]
 })
 export class PersonasModule {}
