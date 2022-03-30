@@ -15,15 +15,15 @@ $ npm i --save serverless-postgres
 
 ## Configuracion
 ```bash
-$ nest generate module journey/personas --no-spec
-$ nest generate controller journey/personas --no-spec
-$ nest generate service journey/personas --no-spec
+$ nest generate module journey/personasJo --no-spec
+$ nest generate controller journey/personasJo --no-spec
+$ nest generate service journey/personasJo --no-spec
 
-$ nest generate module business/personas --no-spec
-$ nest generate service business/personas --no-spec
+$ nest generate module business/personasBs --no-spec
+$ nest generate service business/personasBs --no-spec
 
-$ nest generate module core/personas --no-spec
-$ nest generate service core/personas --no-spec
+$ nest generate module core/personasCo --no-spec
+$ nest generate service core/personasCo --no-spec
 ```
 
 ## Iniciar en local
