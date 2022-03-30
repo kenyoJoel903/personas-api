@@ -41,7 +41,7 @@ $ npm prune --production
 $ zip -r deploy/app.zip dist/ node_modules
 
 
-$ sam deploy --guided
+$ sam deploy --guided --profile tranzfer-dev
 ```
 
 ## Running the app

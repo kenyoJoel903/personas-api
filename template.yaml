@@ -10,9 +10,13 @@ Globals:
 Parameters:
   Stage:
     Type: String
-  S3ProofSend:
+  DbUser:
     Type: String
-  S3ProofPayment:
+  DbPassword:
+    Type: String
+  DbHost:
+    Type: String
+  Db:
     Type: String
 
 Resources:
@@ -32,7 +36,12 @@ Resources:
       Timeout: 60
       Environment:
         Variables:
-          tzProfile: !Sub '${Stage}'   
+          tzProfile: !Sub '${Stage}'  
+          TRANZFER_DB_USER: !Sub '${DbUser}' 
+          TRANZFER_DB_PASSWORD: !Sub '${DbPassword}' 
+          TRANZFER_DB_HOST: !Sub '${DbHost}' 
+          TRANZFER_DB: !Sub '${Db}' 
+
       Policies:
         - AWSLambdaBasicExecutionRole
         

@@ -3,7 +3,7 @@ import { PersonaDtoRequest } from 'src/models/dto/request/persona-dto.request';
 import { PersonaDtoResponse } from 'src/models/dto/response/persona-dto.response';
 import { PersonasJoService } from './personas-jo.service';
 
-@Controller('personas-jo')
+@Controller('api/personas')
 export class PersonasJoController {
 
     constructor(

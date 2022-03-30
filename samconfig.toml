@@ -1,0 +1,13 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "PersonasJourneyJs"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-zarxtecvni4r"
+s3_prefix = "PersonasJourneyJs"
+region = "us-east-1"
+profile = "tranzfer-dev"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Stage=\"Dev\" DbUser=\"postgres\" DbPassword=\"TranzferMeDev18346*\" DbHost=\"tranzferdb-dev-cluster-instance-1.craal3ndrcmt.us-east-1.rds.amazonaws.com\" Db=\"tranzferdb\""
+image_repositories = []
