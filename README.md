@@ -10,7 +10,8 @@ $ npm install --save aws-sdk
 $ npm install --save @nestjs/swagger swagger-ui-express
 $ npm i --save aws-lambda
 $ npm i --save aws-serverless-express
-$ npm i --save serverless-postgres
+$ npm install --save @nestjs/sequelize sequelize sequelize-typescript pg
+$ npm install --save-dev @types/sequelize
 ```
 
 ## Configuracion
@@ -24,6 +25,8 @@ $ nest generate service business/personasBs --no-spec
 
 $ nest generate module core/personasCo --no-spec
 $ nest generate service core/personasCo --no-spec
+
+$ nest generate module core/database --no-spec
 ```
 
 ## Iniciar en local

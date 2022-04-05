@@ -1,35 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { Persona } from 'src/models/domain/persona';
-import { Telefono } from 'src/models/domain/telefono';
-import { PersonasCoRepository } from './personas-co.repository';
-import { TelefonosCoRepository } from './telefonos-co.repository';
+import { InjectModel } from '@nestjs/sequelize';
+import { Persona } from './models/persona.model';
+import { Telefono } from './models/telefono.model';
 
 @Injectable()
 export class PersonasCoService {
 
     constructor(
-        private personaRepository:PersonasCoRepository,
-        private telefonoRepository:TelefonosCoRepository
+        @InjectModel(Persona)
+        private personaRepository:typeof Persona,
+        @InjectModel(Telefono)
+        private telefonoRepository:typeof Telefono
     ) {}
 
-    async save(data:Persona):Promise<Persona> {
-        data.estado = true;
-        let persona:Persona = await this.personaRepository.save(data);
-        if(persona) {
-            persona.telefonos = [];
-            data.telefonos.forEach(async (tel:Telefono) => {
-                tel.idPersona = persona.id;
-                tel.estado = true;
-                const telefono = await this.telefonoRepository.save(tel);
-                if(telefono) {
-                    persona.telefonos.push(telefono);
-                }
-            })
-        }
-        return persona;
+    async savePersona(data:Persona):Promise<Persona> {
+        return this.personaRepository.create({
+            nombres: data.nombres,
+            apellidos: data.apellidos,
+            fechaNacimiento: data.fechaNacimiento,
+            estado: true
+        });
+    }
+
+    async saveTelefono(data:Telefono):Promise<Telefono> {
+        return this.telefonoRepository.create({
+            telefono: data.telefono,
+            estado: true,
+            personaId: data.persona.id
+        });
     }
 
     async findTelefonosByPersona(idPersona:number):Promise<Array<Telefono>> {
-        return await this.telefonoRepository.findByPesona(idPersona);
+        return await this.telefonoRepository.findAll({
+            where: {
+                personaId: idPersona
+            }
+        });
     }
 }

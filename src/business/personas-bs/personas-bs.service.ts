@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { Persona } from 'src/core/personas-co/models/persona.model';
+import { Telefono } from 'src/core/personas-co/models/telefono.model';
 import { PersonasCoService } from 'src/core/personas-co/personas-co.service';
-import { Persona } from 'src/models/domain/persona';
-import { Telefono } from 'src/models/domain/telefono';
 import { PersonaDtoRequest } from 'src/models/dto/request/persona-dto.request';
 import { PersonaDtoResponse } from 'src/models/dto/response/persona-dto.response';
 import { TelefonoDtoResponse } from 'src/models/dto/response/telefono-dto.response';
@@ -22,11 +22,15 @@ export class PersonasBsService {
         persona.apellidos = data.apellidos.toUpperCase();
         persona.nombres = data.nombres.toUpperCase();
         persona.fechaNacimiento = new Date(data.fechaNacimiento);
+        persona = await this.personaCoService.savePersona(persona);
         persona.telefonos = [];
-        data.telefonos.forEach(tel => {
-            persona.telefonos.push(new Telefono(tel));
-        })
-        persona = await this.personaCoService.save(persona);
+        await Promise.all(data.telefonos.map(async (tel) => {
+            let _tel = new Telefono();
+            _tel.telefono = tel.telefono
+            _tel.persona = persona;
+            persona.telefonos.push( await this.personaCoService.saveTelefono(_tel));
+        }))
+        
         if(persona) {
             personaResponse = new PersonaDtoResponse(persona);
         }
